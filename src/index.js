@@ -48,7 +48,12 @@ function inputCountry() {
         refs.countryList.insertAdjacentHTML('beforeend', addCountryList(data));
       }
     })
-    .catch(alertNoSuchCountry);
+    .catch(err => {
+      if (err.message === 404) {
+        alertNoSuchCountry();
+      }
+      else console.log(err.message)
+    });
 }
 
 refs.input.addEventListener('input', debounce(inputCountry, DEBOUNCE_DELAY));
